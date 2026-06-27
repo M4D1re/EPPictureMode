@@ -17,6 +17,7 @@ java {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     exclusiveContent {
         forRepository {
@@ -26,11 +27,11 @@ repositories {
     }
     exclusiveContent {
         forRepositories(
-            maven("https://maven.parchmentmc.org") { name = "ParchmentMC" },
-            maven("https://maven.neoforged.net/releases") { name = "NeoForge" },
-            maven("https://maven.minecraftforge.net/") { name = "MinecraftForge" }
+            mavenLocal(),
+            maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" },
+            maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
         )
-        filter { includeGroup("org.parchmentmc.data") }
+        filter { includeGroupAndSubgroups("dev.kikugie") }
     }
     exclusiveContent {
         forRepositories(
