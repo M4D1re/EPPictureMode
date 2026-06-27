@@ -38,6 +38,10 @@ repositories {
     }
     exclusiveContent {
         forRepositories(
+            maven {
+                name = "Local Maven"
+                url = rootProject.uri("local-maven")
+            },
             maven("https://maven.terraformersmc.com/releases/") { name = "TerraformersMC" }
         )
         filter { includeGroupAndSubgroups("com.terraformersmc") }
@@ -58,8 +62,28 @@ repositories {
     }
 }
 
+// Workaround for unstable KikuGie Maven downloads.
+// The Fletching Table plugin adds dev.kikugie:fletching-table to compile resolution.
+// On some networks Gradle cannot resolve it reliably, so we remove the module
+// dependency and provide the downloaded API jar directly.
+val localFletchingTableJar = rootProject.file("libs/kikugie/fletching-table-0.1.0-alpha.22-api.jar")
+
+configurations.configureEach {
+    exclude(group = "dev.kikugie", module = "fletching-table")
+}
+
+dependencies {
+    compileOnly(files(localFletchingTableJar))
+}
+
+
 tasks {
     processResources {
+
+        // Gradle 9 validates resource input directories during task configuration.
+        // KSP may not generate anything for some versions, so the directory can be absent.
+        layout.buildDirectory.dir("generated/ksp").get().asFile.mkdirs()
+
         val expandProps = mapOf(
             "version" to version as String,
             "java_version" to commonMod.propOrNull("java_version"),
@@ -87,4 +111,6 @@ tasks {
 
         inputs.properties(expandProps)
     }
+
+
 }
