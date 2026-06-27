@@ -283,11 +283,17 @@ public class PictureModeScreen extends Screen {
             radius += 1.0D;
         }
 
-        radius = Math.max(3.0D, Math.min(32.0D, radius));
+        radius = Math.max(3.0D, Math.min(this.getMaxOrbitRadius(), radius));
 
         pmState.cameraZoom.setGoal(radius, delta);
 
         return true;
+    }
+
+    private double getMaxOrbitRadius() {
+        int renderDistanceChunks = this.minecraft.options.getEffectiveRenderDistance();
+
+        return Math.max(3.0D, renderDistanceChunks * 16.0D - 16.0D);
     }
 
     @Override

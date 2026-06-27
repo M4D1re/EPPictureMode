@@ -23,7 +23,8 @@ public class PictureModeState {
 
     public final Value cameraRotation = new InterpolatedValue(Easing.EXPONENTIAL, PictureModeConstants.DEFAULT_ROTATION, 25.0D);
     public final Value cameraTilt = new InterpolatedValue(Easing.EXPONENTIAL, PictureModeConstants.DEFAULT_TILT, 25.0D);
-    public final Value cameraZoom = new InterpolatedValue(Easing.EXPONENTIAL, 1.0D, 25.0D).clamped(0.0D, Double.MAX_VALUE);
+    //public final Value cameraZoom = new InterpolatedValue(Easing.EXPONENTIAL, 1.0D, 25.0D).clamped(0.0D, Double.MAX_VALUE);
+    public final Value cameraZoom = new InterpolatedValue(Easing.EXPONENTIAL, 12.0D, 10.0D).clamped(3.0D, Double.MAX_VALUE);
     public final Value fog = new InterpolatedValue(Easing.EXPONENTIAL, 1.0D, 100.0D);
     public final Value cameraPanX = new InterpolatedValue(Easing.EXPONENTIAL, 5.0D);
     public final Value cameraPanY = new InterpolatedValue(Easing.EXPONENTIAL, 5.0D);

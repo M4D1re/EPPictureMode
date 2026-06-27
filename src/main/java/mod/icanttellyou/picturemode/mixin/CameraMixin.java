@@ -53,8 +53,12 @@ public abstract class CameraMixin {
 
         float zoom = (float) state.cameraZoom.getValue(delta);
 
-        float orbitRadius = 12.0F + zoom * 2.0F;
-        orbitRadius = Math.max(3.0F, Math.min(32.0F, orbitRadius));
+        int renderDistanceChunks = net.minecraft.client.Minecraft.getInstance().options.getEffectiveRenderDistance();
+
+        float maxOrbitRadius = Math.max(3.0F, renderDistanceChunks * 16.0F - 16.0F);
+
+        float orbitRadius = (float) state.cameraZoom.getValue(delta);
+        orbitRadius = Math.max(3.0F, Math.min(maxOrbitRadius, orbitRadius));
 
         float safeOrbitRadius = this.getMaxZoom(orbitRadius);
 
