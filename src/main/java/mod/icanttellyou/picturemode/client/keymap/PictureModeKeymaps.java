@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import mod.icanttellyou.picturemode.client.PictureModeClient;
+
 public class PictureModeKeymaps {
     private static final Set<Pair<KeyMapping, KeyMappingCallback>> KEYMAPS = new HashSet<>();
 
@@ -25,6 +27,16 @@ public class PictureModeKeymaps {
         *///? }
     ), (client, mapping) -> {
         while (mapping.consumeClick()) {
+            if (client.level == null || client.player == null) {
+                continue;
+            }
+
+            PictureModeClient.onWorldLoad();
+
+            if (PictureModeClient.getState() == null) {
+                continue;
+            }
+
             client.setScreen(new PictureModeScreen(null));
         }
     });
