@@ -62,7 +62,7 @@ public class PictureModeScreen extends Screen {
     public PictureModeScreen(Screen parent) {
         super(Component.empty());
         this.parent = parent;
-        this.pmState = PictureModeClient.getState();
+        this.pmState = PictureModeClient.getOrCreateState();
         this.layout = new AnchorLayout(0, 0);
 
         this.openedAtMillis = Util.getMillis();

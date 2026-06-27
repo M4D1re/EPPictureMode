@@ -82,6 +82,14 @@ public class PictureModeClient {
         return state;
     }
 
+    public static PictureModeState getOrCreateState() {
+        if (state == null) {
+            state = new PictureModeState();
+        }
+
+        return state;
+    }
+
     /**
      * Gets the config for Picture Mode.
      *
