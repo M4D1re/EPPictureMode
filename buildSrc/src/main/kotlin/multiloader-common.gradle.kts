@@ -80,8 +80,6 @@ dependencies {
 tasks {
     processResources {
 
-        // Gradle 9 validates resource input directories during task configuration.
-        // KSP may not generate anything for some versions, so the directory can be absent.
         layout.buildDirectory.dir("generated/ksp").get().asFile.mkdirs()
 
         val expandProps = mapOf(

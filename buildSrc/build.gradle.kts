@@ -4,6 +4,7 @@ plugins {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     gradlePluginPortal()
     maven("https://maven.kikugie.dev/snapshots")

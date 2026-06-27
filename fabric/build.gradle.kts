@@ -37,10 +37,14 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${commonMod.prop("fabric_loader_version")}")
     modApi("net.fabricmc.fabric-api:fabric-api:${commonMod.prop("fabric_api_version")}")
 
+// Temporarily disable ModMenu resolving.
+// On some systems Gradle/Java hangs while downloading from TerraformersMC Maven,
+// even though the same files download instantly in browser/PowerShell.
+// ModMenu is optional for testing Picture Mode camera behavior.
     if (commonMod.prop("mod_menu_supported").toBoolean()) {
-        modImplementation("com.terraformersmc:modmenu:${commonMod.prop("mod_menu_version")}")
+        // modImplementation("com.terraformersmc:modmenu:${commonMod.prop("mod_menu_version")}")
     } else {
-        modCompileOnly("com.terraformersmc:modmenu:${commonMod.prop("mod_menu_version")}")
+        // modCompileOnly("com.terraformersmc:modmenu:${commonMod.prop("mod_menu_version")}")
     }
 
     modImplementation("dev.isxander:yet-another-config-lib:${commonMod.prop("yacl_version")}-fabric")

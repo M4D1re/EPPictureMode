@@ -17,7 +17,10 @@ public abstract class CameraMixin {
 
     @Shadow protected abstract void move(float distanceOffset, float verticalOffset, float horizontalOffset);
     //@Shadow protected abstract void move(double distanceOffset, double verticalOffset, double horizontalOffset);
-
+    @Shadow
+    private float getMaxZoom(float distance) {
+        throw new AssertionError();
+    }
 
 
     @Inject(
@@ -48,10 +51,10 @@ public abstract class CameraMixin {
 
         this.detached = !state.isPlayerShown();
 
-        float panX = (float) state.cameraPanX.getValue(delta);
-        float panY = (float) state.cameraPanY.getValue(delta);
+        float maxOrbitRadius = 12.0F;
+        float safeOrbitRadius = this.getMaxZoom(maxOrbitRadius);
 
-        this.move(0.0F, panY, -panX);
+        this.move(-safeOrbitRadius, 0.0F, 0.0F);
 
 
     }

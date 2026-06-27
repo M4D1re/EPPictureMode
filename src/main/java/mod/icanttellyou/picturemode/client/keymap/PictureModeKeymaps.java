@@ -31,12 +31,6 @@ public class PictureModeKeymaps {
                 continue;
             }
 
-            PictureModeClient.onWorldLoad();
-
-            if (PictureModeClient.getState() == null) {
-                continue;
-            }
-
             client.setScreen(new PictureModeScreen(null));
         }
     });
