@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Camera.class)
 public abstract class CameraMixin {
-    @Shadow private boolean detached;
+    //@Shadow private boolean detached;
 
     @Shadow protected abstract void setRotation(float yRot, float xRot);
 
@@ -45,8 +45,12 @@ public abstract class CameraMixin {
         if (state == null || !state.isEnabled())
             return;
 
+
         state.setupCameraAngles(delta, this::setRotation);
-        this.detached = state.isPlayerShown();
+
+//        this.detached = state.isPlayerShown();
+        // Не переводим камеру в detached/freecam/spectator-подобный режим.
+
     }
 
     //? if >=26.1 {
