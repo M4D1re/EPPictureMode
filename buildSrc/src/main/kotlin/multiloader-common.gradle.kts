@@ -19,6 +19,9 @@ java {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven("https://maven.parchmentmc.org") {
+        name = "ParchmentMC"
+    }
     exclusiveContent {
         forRepository {
             maven("https://repo.spongepowered.org/repository/maven-public") { name = "Sponge" }
