@@ -26,6 +26,8 @@ import org.jetbrains.annotations.Nullable;
 
 import static mod.icanttellyou.picturemode.PictureModeConstants.*;
 
+import org.lwjgl.glfw.GLFW;
+
 public class PictureModeScreen extends Screen {
     private static final String DEFAULT_KEY = "gui.picturemode.default";
     private static final String DEGREES_KEY = "gui.picturemode.degrees";
@@ -340,6 +342,24 @@ public class PictureModeScreen extends Screen {
             helpText.fadeOut();
         }
         return true;
+    }
+
+    @Override
+    public boolean keyPressed(net.minecraft.client.input.KeyEvent event) {
+        if (event.key() == GLFW.GLFW_KEY_ESCAPE) {
+            ScreenshotHandler screenshotHandler = PictureModeClient.getScreenshotHandler();
+
+            if (screenshotHandler.getStatus() != ScreenshotHandler.Status.IDLE) {
+                screenshotHandler.cancel();
+                return true;
+            }
+
+            this.onExit();
+            this.minecraft.setScreen(this.parent);
+            return true;
+        }
+
+        return super.keyPressed(event);
     }
 
     @Override

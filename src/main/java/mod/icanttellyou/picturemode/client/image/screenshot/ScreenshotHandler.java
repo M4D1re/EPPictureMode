@@ -96,6 +96,17 @@ public class ScreenshotHandler {
         return status;
     }
 
+
+    /**
+     * Cancels the current screenshot process and returns to idle state.
+     */
+    public void cancel() {
+        this.status = Status.IDLE;
+        this.screenshotCallback = null;
+        this.frame = 0;
+    }
+
+
     /**
      * Determines if the screenshot should be captured
      *
