@@ -290,6 +290,8 @@ public class PictureModeScreen extends Screen {
         return true;
     }
 
+
+
     private double getMaxOrbitRadius() {
         int renderDistanceChunks = this.minecraft.options.getEffectiveRenderDistance();
 
@@ -317,14 +319,23 @@ public class PictureModeScreen extends Screen {
             mouseX *= (double) window.getScreenWidth() / window.getGuiScaledWidth();
             mouseY *= (double) window.getScreenHeight() / window.getGuiScaledHeight();
 
-            if (button == 0) {
-                double zoom = pmState.cameraZoom.getValue(this.getDeltaTicks());
-                double div = Math.pow(2.0, zoom) / 3.0D;
+            if (button == 1) {
+                double sensitivity = 0.03D;
 
-                pmState.cameraPanX.setGoal(cameraPanXStart + (mouseX - mouseXStart) / div, delta);
-                pmState.cameraPanY.setGoal(cameraPanYStart + (mouseY - mouseYStart) / div, delta);
-            } else {
-                pmState.cameraRotation.setGoal(cameraRotationStart + (mouseX - mouseXStart) * (ROTATION_STEP_SIZE / 128.0D), delta);
+                pmState.cameraPanX.setGoal(
+                        pmState.cameraPanX.getValue(delta) - deltaX * sensitivity,
+                        delta
+                );
+
+                pmState.cameraPanY.setGoal(
+                        pmState.cameraPanY.getValue(delta) + deltaY * sensitivity,
+                        delta
+                );
+            } else if (button == 2) {
+                pmState.cameraRotation.setGoal(
+                        cameraRotationStart + (mouseX - mouseXStart) * (ROTATION_STEP_SIZE / 128.0D),
+                        delta
+                );
             }
         }
         return true;

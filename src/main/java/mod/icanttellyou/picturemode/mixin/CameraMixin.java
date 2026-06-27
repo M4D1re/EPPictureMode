@@ -49,7 +49,7 @@ public abstract class CameraMixin {
 
         state.setupCameraAngles(delta, this::setRotation);
 
-        this.detached = !state.isPlayerShown();
+        this.detached = state.isPlayerShown();
 
         float zoom = (float) state.cameraZoom.getValue(delta);
 
