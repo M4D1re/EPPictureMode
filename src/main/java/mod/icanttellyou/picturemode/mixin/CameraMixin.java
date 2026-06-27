@@ -51,8 +51,12 @@ public abstract class CameraMixin {
 
         this.detached = !state.isPlayerShown();
 
-        float maxOrbitRadius = 12.0F;
-        float safeOrbitRadius = this.getMaxZoom(maxOrbitRadius);
+        float zoom = (float) state.cameraZoom.getValue(delta);
+
+        float orbitRadius = 12.0F + zoom * 2.0F;
+        orbitRadius = Math.max(3.0F, Math.min(32.0F, orbitRadius));
+
+        float safeOrbitRadius = this.getMaxZoom(orbitRadius);
 
         this.move(-safeOrbitRadius, 0.0F, 0.0F);
 

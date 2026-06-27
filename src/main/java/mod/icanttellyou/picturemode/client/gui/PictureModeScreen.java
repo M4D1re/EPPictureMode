@@ -272,12 +272,20 @@ public class PictureModeScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, /*? >=1.20.2 {*/ double scrollX, /*?}*/ double scrollY) {
-        if (scrollY < 0) {
-            pmState.cameraZoom.subtractFromGoal(0.25D, this.getDeltaTicks());
-        } else if (scrollY > 0) {
-            pmState.cameraZoom.addToGoal(0.25D, this.getDeltaTicks());
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        float delta = this.getDeltaTicks();
+
+        double radius = pmState.cameraZoom.getValue(delta);
+
+        if (scrollY > 0) {
+            radius -= 1.0D;
+        } else if (scrollY < 0) {
+            radius += 1.0D;
         }
+
+        radius = Math.max(3.0D, Math.min(32.0D, radius));
+
+        pmState.cameraZoom.setGoal(radius, delta);
 
         return true;
     }
